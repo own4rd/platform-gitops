@@ -1,0 +1,6 @@
+apiVersion: v2
+name: credit-validation-service
+description: MS1 - valida elegibilidade de crédito (idade > 30) e agrega o valor liberado pelo MS2
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

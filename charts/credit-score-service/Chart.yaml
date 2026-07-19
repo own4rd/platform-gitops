@@ -1,0 +1,6 @@
+apiVersion: v2
+name: credit-score-service
+description: MS3 - consulta score de crédito mockado (serviço espelho, independente do fluxo MS1/MS2)
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: credit-score-service
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: credit-score-service
+  template:
+    metadata:
+      labels:
+        app: credit-score-service
+    spec:
+      containers:
+      - name: credit-score-service
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 8080
+          name: http
+        resources:
+{{ toYaml .Values.resources | nindent 10 }}
+        readinessProbe:
+          httpGet:
+            path: /q/health/ready
+            port: http
+        livenessProbe:
+          httpGet:
+            path: /q/health/live
+            port: http

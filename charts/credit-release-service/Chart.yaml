@@ -1,0 +1,6 @@
+apiVersion: v2
+name: credit-release-service
+description: MS2 - calcula o valor de crédito liberado por faixa etária (100% interno)
+type: application
+version: 1.0.0
+appVersion: "1.0.0"

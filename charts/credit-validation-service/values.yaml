@@ -1,0 +1,26 @@
+replicaCount: 3
+
+image:
+  repository: ghcr.io/own4rd/credit-validation-service
+  tag: "latest"
+
+namespace: credit-study
+
+releaseServiceUrl: http://credit-release-service.credit-study.svc.cluster.local
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+hpa:
+  minReplicas: 3
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+ingress:
+  host: credit-api.local
+  path: /api/credit/validate

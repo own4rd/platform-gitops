@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: credit-validation-service
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: credit-validation-service
+  template:
+    metadata:
+      labels:
+        app: credit-validation-service
+    spec:
+      containers:
+      - name: credit-validation-service
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: RELEASE_SERVICE_URL
+          value: {{ .Values.releaseServiceUrl | quote }}
+        resources:
+{{ toYaml .Values.resources | nindent 10 }}
+        readinessProbe:
+          httpGet:
+            path: /q/health/ready
+            port: http
+        livenessProbe:
+          httpGet:
+            path: /q/health/live
+            port: http

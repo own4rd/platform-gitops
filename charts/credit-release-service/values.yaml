@@ -1,0 +1,25 @@
+replicaCount: 4
+
+image:
+  repository: ghcr.io/own4rd/credit-release-service
+  tag: "latest"
+
+namespace: credit-study
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+hpa:
+  minReplicas: 4
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 70
+
+creditAmounts:
+  tier2030: "1000"
+  tier3040: "3000"
+  tier40Plus: "5000"

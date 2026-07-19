@@ -1,0 +1,28 @@
+replicaCount: 2
+
+image:
+  tag: "1.27-alpine"
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+namespace: nginx-web
+
+serverBlock: |
+  server {
+    listen 80;
+    server_name _;
+    location / {
+      return 200 'Hello from NGINX via ArgoCD Helm!';
+      add_header Content-Type text/plain;
+    }
+    location /health {
+      return 200 'OK';
+      add_header Content-Type text/plain;
+    }
+  }
